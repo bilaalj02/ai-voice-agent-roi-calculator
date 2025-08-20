@@ -46,8 +46,8 @@ function calculateROI() {
     
     // Calculate total costs and benefits over time period
     const totalCosts = setupCost + (monthlyVoiceAgent * timeFrame);
-    const totalBenefits = (totalMonthlyBenefit * timeFrame) + (monthlyReceptionist * timeFrame);
-    const netBenefit = totalBenefits - totalCosts - (monthlyReceptionist * timeFrame);
+    const totalBenefits = totalMonthlyBenefit * timeFrame;
+    const netBenefit = totalBenefits - setupCost;
     
     // Calculate ROI
     const roi = totalCosts > 0 ? (netBenefit / totalCosts) * 100 : 0;
