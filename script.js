@@ -1,4 +1,6 @@
 function calculateROI() {
+    console.log('Calculate ROI button clicked!');
+    
     // Get input values
     const setupCost = parseFloat(document.getElementById('setupCost').value) || 0;
     const monthlyVoiceAgent = parseFloat(document.getElementById('monthlyVoiceAgent').value) || 0;
@@ -7,6 +9,8 @@ function calculateROI() {
     const averageServiceCost = parseFloat(document.getElementById('averageServiceCost').value) || 0;
     const conversionRate = parseFloat(document.getElementById('conversionRate').value) || 0;
     const timeFrame = parseFloat(document.getElementById('timeFrame').value) || 12;
+    
+    console.log('Input values:', { setupCost, monthlyVoiceAgent, monthlyReceptionist, missedCalls, averageServiceCost, conversionRate, timeFrame });
 
     const resultDiv = document.getElementById('result');
     const monthlySavingsElement = document.getElementById('monthlySavings');
@@ -15,9 +19,23 @@ function calculateROI() {
     const paybackPeriodElement = document.getElementById('paybackPeriod');
     const breakdownElement = document.getElementById('breakdown');
     const interpretationElement = document.getElementById('interpretation');
+    
+    console.log('DOM elements found:', {
+        resultDiv: !!resultDiv,
+        monthlySavingsElement: !!monthlySavingsElement,
+        recoveredRevenueElement: !!recoveredRevenueElement,
+        totalROIElement: !!totalROIElement,
+        paybackPeriodElement: !!paybackPeriodElement,
+        breakdownElement: !!breakdownElement,
+        interpretationElement: !!interpretationElement
+    });
 
-    // Reset classes
-    resultDiv.className = 'result';
+    // Check if all required elements exist
+    if (!monthlySavingsElement || !recoveredRevenueElement || !totalROIElement || !paybackPeriodElement) {
+        console.error('Some required DOM elements not found!');
+        alert('Error: Required display elements not found. Please check the HTML structure.');
+        return;
+    }
 
     // Validate inputs
     if (monthlyVoiceAgent <= 0) {
@@ -46,8 +64,9 @@ function calculateROI() {
     
     // Calculate total costs and benefits over time period
     const totalCosts = setupCost + (monthlyVoiceAgent * timeFrame);
-    const totalBenefits = totalMonthlyBenefit * timeFrame;
-    const netBenefit = totalBenefits - setupCost;
+    const totalSavings = monthlySavings * timeFrame;
+    const totalRecoveredRevenue = monthlyRecoveredRevenue * timeFrame;
+    const netBenefit = totalSavings + totalRecoveredRevenue;
     
     // Calculate ROI
     const roi = totalCosts > 0 ? (netBenefit / totalCosts) * 100 : 0;
@@ -71,26 +90,38 @@ function calculateROI() {
 
     // Create detailed breakdown
     const breakdownHTML = `
-        <h4>Financial Breakdown (${timeFrame} months):</h4>
-        <div class="breakdown-item">
-            <span>Setup Cost:</span>
-            <span>-$${setupCost.toFixed(2)}</span>
-        </div>
-        <div class="breakdown-item">
-            <span>Voice Agent Cost (${timeFrame} months):</span>
-            <span>-$${(monthlyVoiceAgent * timeFrame).toFixed(2)}</span>
-        </div>
-        <div class="breakdown-item">
-            <span>Receptionist Savings (${timeFrame} months):</span>
-            <span style="color: #4caf50;">+$${(monthlyReceptionist * timeFrame).toFixed(2)}</span>
-        </div>
-        <div class="breakdown-item">
-            <span>Revenue from Recovered Calls:</span>
-            <span style="color: #4caf50;">+$${(monthlyRecoveredRevenue * timeFrame).toFixed(2)}</span>
-        </div>
-        <div class="breakdown-item">
-            <span>Net Benefit:</span>
-            <span style="color: #1E3A57; font-weight: bold;">$${netBenefit.toFixed(2)}</span>
+        <div class="mt-4 p-4 rounded-md bg-[#f8fafc] border border-[#d1d5db]">
+            <h4 class="text-[#1e3a8a] text-lg font-bold mb-4">Financial Breakdown (${timeFrame} months):</h4>
+            <div class="space-y-2">
+                <div class="flex justify-between py-2 text-sm">
+                    <span class="text-[#64748b] font-medium">Total Investment:</span>
+                    <span class="text-red-600 font-bold">-$${totalCosts.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between py-1 text-sm ml-4">
+                    <span class="text-[#64748b]">• Setup Cost:</span>
+                    <span class="text-[#64748b]">-$${setupCost.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between py-1 text-sm ml-4">
+                    <span class="text-[#64748b]">• Voice Agent Cost (${timeFrame} months):</span>
+                    <span class="text-[#64748b]">-$${(monthlyVoiceAgent * timeFrame).toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between py-2 text-sm border-t border-[#d1d5db] mt-2 pt-2">
+                    <span class="text-[#64748b] font-medium">Total Benefits:</span>
+                    <span class="text-green-600 font-bold">+$${netBenefit.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between py-1 text-sm ml-4">
+                    <span class="text-[#64748b]">• Payroll Savings (${timeFrame} months):</span>
+                    <span class="text-[#64748b]">+$${totalSavings.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between py-1 text-sm ml-4">
+                    <span class="text-[#64748b]">• Revenue from Recovered Calls:</span>
+                    <span class="text-[#64748b]">+$${totalRecoveredRevenue.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between py-2 text-base border-t border-[#d1d5db] mt-2 pt-2">
+                    <span class="text-[#1e3a8a] font-bold">Net Profit:</span>
+                    <span class="text-[var(--primary-color)] font-bold text-xl">$${(netBenefit - totalCosts).toFixed(2)}</span>
+                </div>
+            </div>
         </div>
     `;
     breakdownElement.innerHTML = breakdownHTML;
@@ -100,36 +131,33 @@ function calculateROI() {
     let resultClass = 'show';
 
     if (roi > 200) {
-        interpretation = '🚀 Exceptional ROI! The AI voice agent will deliver outstanding returns and pay for itself very quickly. This is an excellent investment for your business.';
+        interpretation = '🚀 Exceptional ROI! The AI voice agent will deliver outstanding returns and pay for itself very quickly.';
         resultClass += ' positive';
     } else if (roi > 100) {
-        interpretation = '📈 Excellent ROI! The AI voice agent is a highly profitable investment for your business. You\'ll see significant returns.';
+        interpretation = '📈 Excellent ROI! The AI voice agent is a highly profitable investment for your business.';
         resultClass += ' positive';
     } else if (roi > 50) {
-        interpretation = '✅ Good ROI! The AI voice agent will provide solid returns on your investment. This is a smart business decision.';
+        interpretation = '✅ Good ROI! The AI voice agent will provide solid returns on your investment.';
         resultClass += ' positive';
     } else if (roi > 0) {
-        interpretation = '💰 Positive ROI! The AI voice agent will generate more value than it costs, making it a worthwhile investment.';
+        interpretation = '💰 Positive ROI! The AI voice agent will generate more value than it costs.';
         resultClass += ' positive';
     } else if (roi === 0) {
-        interpretation = '⚖️ Break-even scenario. The AI voice agent will pay for itself but won\'t generate additional profit with these numbers.';
+        interpretation = '⚖️ Break-even scenario. The AI voice agent will pay for itself but won\'t generate additional profit.';
     } else {
-        interpretation = '⚠️ Negative ROI with current inputs. Consider optimizing your conversion rate, reducing missed calls, or adjusting costs to improve returns.';
+        interpretation = '⚠️ Negative ROI. Consider optimizing your conversion rate or reducing missed calls to improve returns.';
         resultClass += ' negative';
     }
 
     // Add additional insights
     if (monthlyRecoveredRevenue > monthlySavings && monthlyRecoveredRevenue > 0) {
-        interpretation += ` The primary value comes from recovering missed calls (${((monthlyRecoveredRevenue / (monthlyRecoveredRevenue + Math.max(monthlySavings, 0))) * 100).toFixed(1)}% of total benefit).`;
+        interpretation += ` The primary value comes from recovering missed calls (${((monthlyRecoveredRevenue / (monthlyRecoveredRevenue + monthlySavings)) * 100).toFixed(1)}% of total benefit).`;
     } else if (monthlySavings > monthlyRecoveredRevenue && monthlySavings > 0) {
         interpretation += ` The primary value comes from payroll savings (${((monthlySavings / (monthlyRecoveredRevenue + monthlySavings)) * 100).toFixed(1)}% of total benefit).`;
     }
 
     interpretationElement.textContent = interpretation;
     resultDiv.className = `result ${resultClass}`;
-
-    // Scroll to results
-    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function showError(message) {
@@ -149,11 +177,16 @@ function showError(message) {
     interpretationElement.textContent = message;
     
     resultDiv.className = 'result show error';
-    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // Add enter key support and input validation
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up event listeners...');
+    
+    // Test if calculate button exists
+    const calculateButton = document.querySelector('button[onclick="calculateROI()"]');
+    console.log('Calculate button found:', !!calculateButton);
+    
     const inputs = document.querySelectorAll('input');
     
     inputs.forEach(input => {
@@ -194,21 +227,59 @@ document.addEventListener('DOMContentLoaded', function() {
             this.value = 1;
         }
     });
-
-    // Add example values on page load for demo purposes
-    if (window.location.search.includes('demo=true')) {
-        document.getElementById('setupCost').value = '1000';
-        document.getElementById('monthlyVoiceAgent').value = '200';
-        document.getElementById('monthlyReceptionist').value = '3000';
-        document.getElementById('missedCalls').value = '50';
-        document.getElementById('averageServiceCost').value = '500';
-        document.getElementById('conversionRate').value = '20';
-        document.getElementById('timeFrame').value = '12';
-    }
 });
 
-// Add analytics tracking for form submissions (if you want to track usage)
-function trackCalculation() {
-    // You can add Google Analytics or other tracking here
-    console.log('ROI calculation completed');
+// Test function for AI Voice Agent ROI calculations
+function testAIVoiceAgentROI() {
+    console.log('Testing AI Voice Agent ROI calculations...');
+    
+    // Test case 1: High-value scenario
+    const test1 = {
+        setupCost: 1000,
+        monthlyVoiceAgent: 200,
+        monthlyReceptionist: 3000,
+        missedCalls: 50,
+        averageServiceCost: 500,
+        conversionRate: 20,
+        timeFrame: 12
+    };
+    
+    const monthlySavings1 = test1.monthlyReceptionist - test1.monthlyVoiceAgent;
+    const monthlyRecoveredRevenue1 = (test1.missedCalls * (test1.conversionRate / 100) * test1.averageServiceCost);
+    const totalMonthlyBenefit1 = monthlySavings1 + monthlyRecoveredRevenue1;
+    const totalCosts1 = test1.setupCost + (test1.monthlyVoiceAgent * test1.timeFrame);
+    const totalBenefits1 = totalMonthlyBenefit1 * test1.timeFrame;
+    const roi1 = (totalBenefits1 / totalCosts1) * 100;
+    
+    console.log(`Test 1 - High-value scenario:`);
+    console.log(`Monthly Savings: $${monthlySavings1}`);
+    console.log(`Monthly Recovered Revenue: $${monthlyRecoveredRevenue1}`);
+    console.log(`ROI: ${roi1.toFixed(1)}%`);
+    console.log(`Expected high ROI: ${roi1 > 100 ? 'PASSED' : 'FAILED'}`);
+    
+    // Test case 2: Break-even scenario
+    const test2 = {
+        setupCost: 500,
+        monthlyVoiceAgent: 100,
+        monthlyReceptionist: 100,
+        missedCalls: 0,
+        averageServiceCost: 0,
+        conversionRate: 0,
+        timeFrame: 12
+    };
+    
+    const monthlySavings2 = test2.monthlyReceptionist - test2.monthlyVoiceAgent;
+    const totalCosts2 = test2.setupCost + (test2.monthlyVoiceAgent * test2.timeFrame);
+    const totalBenefits2 = monthlySavings2 * test2.timeFrame;
+    const roi2 = totalCosts2 > 0 ? (totalBenefits2 / totalCosts2) * 100 : 0;
+    
+    console.log(`Test 2 - Break-even scenario:`);
+    console.log(`Monthly Savings: $${monthlySavings2}`);
+    console.log(`ROI: ${roi2.toFixed(1)}%`);
+    console.log(`Expected negative ROI due to setup cost: ${roi2 < 0 ? 'PASSED' : 'FAILED'}`);
+    
+    console.log('AI Voice Agent ROI calculation tests completed.');
 }
+
+// Run tests in console (uncomment for testing)
+// testAIVoiceAgentROI();

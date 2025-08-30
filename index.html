@@ -1,119 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Voice Agent ROI Calculator - Cold Solutions</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>AI Voice Agent Calculator</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #137fec;
+      }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <header class="header">
-            <div class="logo-section">
-                <h1><svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 10px;">
-                    <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="white"/>
-                </svg> AI Voice Agent ROI Calculator</h1>
-                <p class="subtitle">Calculate your potential savings with Cold Solutions</p>
-            </div>
-        </header>
+<body class="bg-white font-['Space_Grotesk',_'Noto_Sans',_sans-serif] text-[#1e3a8a]">
+<div class="relative flex size-full min-h-screen flex-col dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] px-10 py-4">
+<div class="flex items-center gap-3 text-[#1e3a8a]">
+<h2 class="text-[#1e3a8a] text-xl font-bold leading-tight tracking-[-0.015em]">AI Voice Agent Calculator</h2>
+</div>
+<div class="flex items-center gap-8">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-10 px-6 bg-[var(--primary-color)] hover:bg-blue-600 transition-colors text-white text-base font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Book A Demo</span>
+</button>
+</div>
+</header>
+<main class="flex-1 px-10 py-16">
+<div class="mx-auto max-w-4xl">
+<div class="text-center mb-12">
+<h1 class="text-[#1e3a8a] text-5xl font-bold leading-tight tracking-tighter">AI Voice Agent Calculator</h1>
+<p class="text-[#64748b] text-lg font-normal leading-normal mt-4 max-w-2xl mx-auto">
+                Calculate the potential ROI of implementing an AI Voice Agent in your business. See how much you can save and improve efficiency.
+              </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-6">
+<form class="space-y-6" id="roiForm">
+<div class="grid grid-cols-2 gap-4">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Setup Cost</span>
+<input id="setupCost" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="$" type="number" min="0" step="0.01"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Monthly Voice Agent Price</span>
+<input id="monthlyVoiceAgent" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="$" type="number" min="0" step="0.01"/>
+</label>
+</div>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Monthly Receptionist Payroll</span>
+<input id="monthlyReceptionist" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="$" type="number" min="0" step="0.01"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Missed Calls Per Month</span>
+<input id="missedCalls" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="e.g., 20" type="number" min="0" step="1"/>
+</label>
+<div class="grid grid-cols-2 gap-4">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Average Service Value</span>
+<input id="averageServiceCost" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="$" type="number" min="0" step="0.01"/>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Conversion Rate (%)</span>
+<input id="conversionRate" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="%" type="number" min="0" max="100" step="0.1"/>
+</label>
+</div>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-medium text-[#1e3a8a]">Time Period (months)</span>
+<input id="timeFrame" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-[#1e3a8a] focus:outline-0 focus:ring-2 focus:ring-[var(--primary-color)] border border-[#d1d5db] bg-white h-12 placeholder:text-[#64748b] px-4 text-base font-normal leading-normal" placeholder="12" type="number" min="1" max="60" step="1" value="12"/>
+</label>
+<button type="button" onclick="calculateROI()" class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-md h-12 px-6 bg-[var(--primary-color)] hover:bg-blue-600 transition-colors text-white text-base font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Calculate ROI</span>
+</button>
+</form>
+</div>
+<div class="flex flex-col gap-8">
+<div>
+<h2 class="text-[#1e3a8a] text-2xl font-bold leading-tight tracking-tight mb-4">ROI Results</h2>
+<div class="space-y-4" id="resultsContainer">
+<div class="flex flex-col gap-2 rounded-md p-6 bg-[#f8fafc] border border-[#d1d5db]">
+<p class="text-[#64748b] text-base font-medium leading-normal">Monthly Savings</p>
+<p id="monthlySavings" class="text-[#1e3a8a] tracking-tight text-3xl font-bold leading-tight">$0</p>
+</div>
+<div class="flex flex-col gap-2 rounded-md p-6 bg-[#f8fafc] border border-[#d1d5db]">
+<p class="text-[#64748b] text-base font-medium leading-normal">Revenue from Recovered Calls</p>
+<p id="recoveredRevenue" class="text-[#1e3a8a] tracking-tight text-3xl font-bold leading-tight">$0</p>
+</div>
+<div class="flex flex-col gap-2 rounded-md p-6 bg-gradient-to-br from-[var(--primary-color)]/20 to-transparent border border-[var(--primary-color)]">
+<p class="text-[var(--primary-color)] text-base font-medium leading-normal">Total ROI</p>
+<p id="totalROI" class="text-[#1e3a8a] tracking-tight text-4xl font-bold leading-tight">0%</p>
+</div>
+<div class="flex flex-col gap-2 rounded-md p-6 bg-[#f8fafc] border border-[#d1d5db]">
+<p class="text-[#64748b] text-base font-medium leading-normal">Payback Period</p>
+<p id="paybackPeriod" class="text-[#1e3a8a] tracking-tight text-3xl font-bold leading-tight">-</p>
+</div>
+</div>
+<div id="result" class="result">
+<div id="breakdown" class="mt-4 text-sm text-[#9dabb9]"></div>
+<div id="interpretation" class="mt-4 p-3 rounded-md bg-[#f8fafc] border border-[#d1d5db] text-sm text-[#64748b]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-20">
+<h2 class="text-[#1e3a8a] text-3xl font-bold leading-tight tracking-tight text-center mb-10">Key Benefits of AI Voice Agent</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col gap-4 rounded-md border border-[#d1d5db] bg-[#f8fafc] p-6 text-center items-center">
+<div class="text-[var(--primary-color)] bg-[var(--primary-color)]/10 rounded-full p-3">
+<svg fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px" xmlns="http://www.w3.org/2000/svg">
+<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"></path>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-[#1e3a8a] text-xl font-bold leading-tight">24/7 Availability</h3>
+<p class="text-[#64748b] text-base font-normal leading-normal">Never miss a call, even outside business hours.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-md border border-[#d1d5db] bg-[#f8fafc] p-6 text-center items-center">
+<div class="text-[var(--primary-color)] bg-[var(--primary-color)]/10 rounded-full p-3">
+<svg fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px" xmlns="http://www.w3.org/2000/svg">
+<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM172,128a8,8,0,0,1-8,8H144v16a8,8,0,0,1-16,0V136H112a8,8,0,0,1,0-16h16V104a8,8,0,0,1,16,0v16h20A8,8,0,0,1,172,128Z"></path>
+<text x="128" y="140" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="currentColor">$</text>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-[#1e3a8a] text-xl font-bold leading-tight">Cost Efficiency</h3>
+<p class="text-[#64748b] text-base font-normal leading-normal">Reduce operational costs by automating call handling.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-md border border-[#d1d5db] bg-[#f8fafc] p-6 text-center items-center">
+<div class="text-[var(--primary-color)] bg-[var(--primary-color)]/10 rounded-full p-3">
+<svg fill="currentColor" height="32px" viewBox="0 0 256 256" width="32px" xmlns="http://www.w3.org/2000/svg">
+<path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.76,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86"></path>
+</svg>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="text-[#1e3a8a] text-xl font-bold leading-tight">Improved Customer Experience</h3>
+<p class="text-[#64748b] text-base font-normal leading-normal">Provide instant support and personalized interactions.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-[#e5e7eb]">
+<div class="mx-auto max-w-7xl px-10 py-8">
+<div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+<p class="text-[#64748b] text-base font-normal leading-normal text-center">© 2024 Cold Solutions. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
 
-        <div class="calculator">
-            <div class="section">
-                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.7 19L13.6 9.9C14.5 7.6 14 4.9 12.1 3C10.1 1 7.1 0.6 4.7 1.7L9 6L6 9L1.6 4.7C0.4 7.1 0.9 10.1 2.9 12.1C4.8 14 7.5 14.5 9.8 13.6L18.9 22.7C19.3 23.1 19.9 23.1 20.3 22.7L22.6 20.4C23.1 20 23.1 19.3 22.7 19Z" fill="#1E3A57"/>
-                </svg> Setup & Monthly Costs</h3>
-                <div class="input-group">
-                    <label for="setupCost">Setup Cost ($):</label>
-                    <input type="number" id="setupCost" placeholder="Initial setup fee (e.g., 1000)" min="0" step="0.01">
-                </div>
-                
-                <div class="input-group">
-                    <label for="monthlyVoiceAgent">Monthly Voice Agent Cost ($):</label>
-                    <input type="number" id="monthlyVoiceAgent" placeholder="Monthly AI agent subscription (e.g., 200)" min="0" step="0.01">
-                </div>
-                
-                <div class="input-group">
-                    <label for="monthlyReceptionist">Monthly Receptionist Payroll ($):</label>
-                    <input type="number" id="monthlyReceptionist" placeholder="Current receptionist salary (e.g., 3000)" min="0" step="0.01">
-                </div>
-            </div>
-
-            <div class="section">
-                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="#1E3A57"/>
-                </svg> Call Performance Metrics</h3>
-                <div class="input-group">
-                    <label for="missedCalls">Missed Calls per Month:</label>
-                    <input type="number" id="missedCalls" placeholder="Number of missed calls (e.g., 50)" min="0" step="1">
-                </div>
-                
-                <div class="input-group">
-                    <label for="averageServiceCost">Average Service Value ($):</label>
-                    <input type="number" id="averageServiceCost" placeholder="Average revenue per service (e.g., 500)" min="0" step="0.01">
-                </div>
-                
-                <div class="input-group">
-                    <label for="conversionRate">Conversion Rate (%):</label>
-                    <input type="number" id="conversionRate" placeholder="% of calls that convert to sales (e.g., 20)" min="0" max="100" step="0.1">
-                </div>
-            </div>
-
-            <div class="section">
-                <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2ZM17 13H11V7H12.5V11.5H17V13Z" fill="#1E3A57"/>
-                </svg> Time Period</h3>
-                <div class="input-group">
-                    <label for="timeFrame">Calculate ROI for (months):</label>
-                    <input type="number" id="timeFrame" placeholder="Number of months" min="1" max="60" step="1" value="12">
-                </div>
-            </div>
-            
-            <button onclick="calculateROI()" class="calculate-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px;">
-                    <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="white"/>
-                </svg>
-                Calculate AI Voice Agent ROI
-            </button>
-            
-            <div class="result" id="result">
-                <h3>ROI Analysis:</h3>
-                <div class="result-grid">
-                    <div class="result-item">
-                        <h4>Monthly Savings</h4>
-                        <p id="monthlySavings"></p>
-                    </div>
-                    <div class="result-item">
-                        <h4>Revenue from Recovered Calls</h4>
-                        <p id="recoveredRevenue"></p>
-                    </div>
-                    <div class="result-item">
-                        <h4>Total ROI</h4>
-                        <p id="totalROI"></p>
-                    </div>
-                    <div class="result-item">
-                        <h4>Payback Period</h4>
-                        <p id="paybackPeriod"></p>
-                    </div>
-                </div>
-                <div class="breakdown" id="breakdown"></div>
-                <p id="interpretation"></p>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="footer-content">
-                <p>Ready to implement an AI Voice Agent for your business?</p>
-                <div class="contact-info">
-                    <p>📧 contact@coldsolutions.ca | 📞 +1 707-805-1915</p>
-                    <a href="https://coldsolutions.ca" target="_blank" class="website-link">
-                        Visit Cold Solutions Website →
-                    </a>
-                </div>
-            </div>
-        </footer>
-    </div>
-    
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
